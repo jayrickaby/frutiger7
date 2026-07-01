@@ -33,11 +33,6 @@ T.Button {
     icon.height: 24
 
     contentItem: Text {
-        spacing: control.spacing
-        mirrored: control.mirrored
-        display: control.display
-
-        font: control.font
         text: control.text
 
         // Frutiger7 Overrides
@@ -53,7 +48,7 @@ T.Button {
     }
 
     background: BorderImage {
-                border.left: 3
+        border.left: 3
         border.right: 3
         border.top: 3
         border.bottom: 3

@@ -21,6 +21,9 @@ T.Button {
     readonly property string colText: "#000000"
     readonly property string colTextDisabled: "#838383"
 
+    property int textHCenterOffset: 0
+    property int textVCenterOffset: 0
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -33,27 +36,22 @@ T.Button {
     icon.height: 24
 
     contentItem: Text {
-        spacing: control.spacing
-        mirrored: control.mirrored
-        display: control.display
-
-        font: control.font
         text: control.text
 
         // Frutiger7 Overrides
         color: control.enabled ? colText : colTextDisabled
-
         font.pointSize: 9
-
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: -1
-
         renderType: Text.NativeRendering
+
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+
+        leftPadding: control.textHCenterOffset
+        topPadding: control.textVCenterOffset
     }
 
     background: BorderImage {
-                border.left: 3
+        border.left: 3
         border.right: 3
         border.top: 3
         border.bottom: 3

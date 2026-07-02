@@ -1,2 +1,4 @@
 module frutiger7
 Button 2.0 Button.qml
+ComboBox 2.0 ComboBox.qml
+TextField 2.0 TextField.qml

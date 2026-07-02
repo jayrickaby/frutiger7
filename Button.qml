@@ -11,12 +11,12 @@ T.Button {
 
     readonly property url dirAssets: Qt.resolvedUrl("assets/items/button/")
 
-    readonly property string img: "button.png"
-    readonly property string imgHot: "button_hot.png"
-    readonly property string imgPressed: "button_pressed.png"
-    readonly property string imgDisabled: "button_disabled.png"
-    readonly property string imgDefault: "button_default.png"
-    readonly property string imgDefaultAnimated: "button_default_animated.png"
+    readonly property string img: "background.png"
+    readonly property string imgHot: "background_hot.png"
+    readonly property string imgPressed: "background_pressed.png"
+    readonly property string imgDisabled: "background_disabled.png"
+    readonly property string imgDefault: "background_default.png"
+    readonly property string imgDefaultAnimated: "background_default_animated.png"
 
     readonly property string colText: "#000000"
     readonly property string colTextDisabled: "#838383"

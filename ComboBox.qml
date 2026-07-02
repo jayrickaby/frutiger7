@@ -29,7 +29,8 @@ T.ComboBox {
 
     contentItem: T.TextField {
         padding: 6
-        leftPadding: padding + 4
+        topPadding: padding + 1
+        bottomPadding: padding - 1
         verticalAlignment: TextInput.AlignVCenter
 
         font.pointSize: 9

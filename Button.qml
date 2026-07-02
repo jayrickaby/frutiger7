@@ -38,16 +38,17 @@ T.Button {
     contentItem: Text {
         text: control.text
 
-        // Frutiger7 Overrides
-        color: control.enabled ? colText : colTextDisabled
-        font.pointSize: 9
-        renderType: Text.NativeRendering
-
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
 
         leftPadding: control.textHCenterOffset
         topPadding: control.textVCenterOffset
+
+        color: control.enabled ? colText : colTextDisabled
+
+        font.letterSpacing: 0.10
+        font.pointSize: 9
+        renderType: Text.NativeRendering
     }
 
     background: BorderImage {
@@ -61,6 +62,9 @@ T.Button {
 
         // Swap the image asset depending on whether the button is hovered or pressed
         source: {
+            if (!control.enabled) {
+                return dirAssets + imgDisabled
+            }
             if (control.pressed) {
                 return dirAssets + imgPressed
             }

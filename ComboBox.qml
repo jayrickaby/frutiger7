@@ -56,7 +56,8 @@ T.ComboBox {
             if (control.down) return dirComboboxAssets + imgArrowBackgroundPressed
             if (control.hovered) return dirComboboxAssets + imgArrowBackgroundHot
 
-            return dirComboboxAssets + imgArrowBackground
+//            return dirComboboxAssets +
+            return ""
         }
 
         Image {

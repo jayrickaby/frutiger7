@@ -5,6 +5,7 @@
 import QtQuick
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
+import "."
 
 T.Button {
     id: control
@@ -17,9 +18,6 @@ T.Button {
     readonly property string imgDisabled: "background_disabled.png"
     readonly property string imgDefault: "background_default.png"
     readonly property string imgDefaultAnimated: "background_default_animated.png"
-
-    readonly property string colText: "#000000"
-    readonly property string colTextDisabled: "#838383"
 
     property int textHCenterOffset: 0
     property int textVCenterOffset: 0
@@ -44,7 +42,7 @@ T.Button {
         leftPadding: control.textHCenterOffset
         topPadding: control.textVCenterOffset
 
-        color: control.enabled ? colText : colTextDisabled
+        color: control.enabled ? Theme.colText : Theme.colTextDisabled
 
         font.letterSpacing: 0.10
         font.pointSize: 9

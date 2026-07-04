@@ -21,6 +21,8 @@ Window {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
+        spacing: 0
+
         RowLayout {
             Layout.alignment: Qt.AlignTop
             Image {
@@ -35,9 +37,16 @@ Window {
             Layout.topMargin: 10
             Layout.bottomMargin: 10
 
+            spacing: 10
+
             Text {
+                Layout.leftMargin: 0
+                Layout.rightMargin: -1
+                Layout.topMargin: -4
+                Layout.bottomMargin: 4
+
                 text: control.contentText
-                // font.letterSpacing: 0.10
+                font.letterSpacing: 0.03
                 font.pointSize: 9
                 renderType: Text.NativeRendering
             }
@@ -60,11 +69,15 @@ Window {
                 anchors.margins: 8
                 anchors.rightMargin: 10
 
-                Item { Layout.fillWidth: true }  // spacer, push buttons right
                 Button {
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
                     Layout.preferredHeight: 21
                     Layout.preferredWidth: 66
+                    Layout.rightMargin: 1
+                    Layout.bottomMargin: 2
                     text: "OK"
+
+                    textVCenterOffset: -1
                 }
             }
 

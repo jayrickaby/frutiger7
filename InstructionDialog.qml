@@ -95,6 +95,7 @@ Window {
             }
 
             DialogButtonBox {
+                id: buttonBox
                 anchors.fill: parent
                 anchors.margins: 10
                 anchors.rightMargin: 11
@@ -107,6 +108,16 @@ Window {
             }
 
             color: Theme.colWindowSecondaryBackground
+        }
+    }
+    onActiveChanged: {
+        if (!active) return
+
+        control.requestActivate()
+
+        // Make first button highlighted
+        if (buttonBox && buttonBox.contentChildren[0]) {
+            buttonBox.contentChildren[0].highlighted = true
         }
     }
 }

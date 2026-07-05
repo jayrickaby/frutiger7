@@ -9,6 +9,11 @@ Window {
     width: columnLayout.implicitWidth
     height: columnLayout.implicitHeight
 
+    minimumWidth: columnLayout.implicitWidth
+    minimumHeight: columnLayout.implicitHeight
+    maximumWidth: columnLayout.implicitWidth
+    maximumHeight: columnLayout.implicitHeight
+
     color: Theme.colWindowBackground
 
     // Replicate Win7 (based on inspect)
@@ -18,8 +23,6 @@ Window {
 
     ColumnLayout {
         id: columnLayout
-        Layout.fillWidth: true
-        Layout.fillHeight: true
 
         spacing: 0
 

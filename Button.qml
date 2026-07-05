@@ -49,30 +49,52 @@ T.Button {
         renderType: Text.NativeRendering
     }
 
-    background: BorderImage {
-        border.left: 3
-        border.right: 3
-        border.top: 3
-        border.bottom: 3
+    background: Item {
+        BorderImage {
+            id: baseBg
+            anchors.fill: parent
+            z:0
+            border.left: 3
+            border.right: 3
+            border.top: 3
+            border.bottom: 3
 
-        horizontalTileMode: BorderImage.Repeat
-        verticalTileMode: BorderImage.Stretch
+            horizontalTileMode: BorderImage.Repeat
+            verticalTileMode: BorderImage.Stretch
 
-        // Swap the image asset depending on whether the button is hovered or pressed
-        source: {
-            if (!control.enabled) {
-                return dirAssets + imgDisabled
+            // Swap the image asset depending on whether the button is hovered or pressed
+            source: {
+                if (!control.enabled) {
+                    return dirAssets + imgDisabled
+                }
+                if (control.highlighted) {
+                    return dirAssets + imgDefault
+                }
+                return dirAssets + img
             }
-            if (control.pressed) {
-                return dirAssets + imgPressed
+        }
+        // TODO: What is going on with highlight glow overlay??
+        BorderImage {
+            id: overlayBg
+            anchors.fill: parent
+            z:1
+            border.left: 3
+            border.right: 3
+            border.top: 3
+            border.bottom: 3
+
+            horizontalTileMode: BorderImage.Repeat
+            verticalTileMode: BorderImage.Stretch
+
+            source: control.pressed ? dirAssets + imgPressed : dirAssets + imgHot
+            opacity: control.pressed || control.hovered ? 1 : 0
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: overlayBg.opacity === 0 ? 300 : 1000
+                    easing.type: Easing.Linear
+                }
             }
-            if (control.hovered) {
-                return dirAssets + imgHot
-            }
-            if (control.highlighted) {
-                return dirAssets + imgDefault
-            }
-            return dirAssets + img
         }
     }
 }

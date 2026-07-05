@@ -19,6 +19,17 @@ Window {
     // Replicate Win7 (based on inspect)
     property string mainInstruction: ""
     property string contentText: ""
+    property int instructionType: InstructionDialog.Information
+
+    enum InstructionTypes {
+        Unknown,
+        Warning,
+        Question,
+        Critical,
+        Information,
+        Permission,
+        None
+    }
 
 
     ColumnLayout {
@@ -32,7 +43,20 @@ Window {
                 Layout.preferredHeight: 32
                 Layout.preferredWidth: 32
 
-                source: "assets/items/dialog/error.ico"
+                source: {
+                    switch (instructionType) {
+                        case 0: return "assets/items/dialog/unknown.ico"
+                        case 1: return "assets/items/dialog/warning.ico"
+                        case 2: return "assets/items/dialog/question.ico"
+                        case 3: return "assets/items/dialog/critical.ico"
+                        case 4: return "assets/items/dialog/information.ico"
+                        case 5: return "assets/items/dialog/permission.ico"
+                        case 6: return ""
+
+                        default: return ""
+                    }
+
+                }
             }
 
             Layout.leftMargin: 10

@@ -81,6 +81,10 @@ Window {
                     text: "OK"
 
                     textVCenterOffset: -1
+
+                    onClicked: {
+                        control.close()
+                    }
                 }
             }
 

@@ -20,6 +20,9 @@ Window {
     property string mainInstruction: ""
     property string contentText: ""
     property int instructionType: InstructionDialog.Information
+    property int buttons: DialogButtonBox.Ok
+
+    signal buttonClicked(int role)
 
     enum InstructionTypes {
         Unknown,
@@ -45,13 +48,13 @@ Window {
 
                 source: {
                     switch (instructionType) {
-                        case 0: return "assets/items/dialog/unknown.ico"
-                        case 1: return "assets/items/dialog/warning.ico"
-                        case 2: return "assets/items/dialog/question.ico"
-                        case 3: return "assets/items/dialog/critical.ico"
-                        case 4: return "assets/items/dialog/information.ico"
-                        case 5: return "assets/items/dialog/permission.ico"
-                        case 6: return ""
+                        case InstructionDialog.Unknown: return "assets/items/dialog/unknown.ico"
+                        case InstructionDialog.Warning: return "assets/items/dialog/warning.ico"
+                        case InstructionDialog.Question: return "assets/items/dialog/question.ico"
+                        case InstructionDialog.Critical: return "assets/items/dialog/critical.ico"
+                        case InstructionDialog.Information: return "assets/items/dialog/information.ico"
+                        case InstructionDialog.Permission: return "assets/items/dialog/permission.ico"
+                        case InstructionDialog.None: return ""
 
                         default: return ""
                     }
@@ -91,24 +94,15 @@ Window {
                 fillMode: Image.Stretch
             }
 
-            RowLayout {
+            DialogButtonBox {
                 anchors.fill: parent
-                anchors.margins: 8
-                anchors.rightMargin: 10
+                anchors.margins: 10
+                anchors.rightMargin: 11
 
-                Button {
-                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-                    Layout.preferredHeight: 21
-                    Layout.preferredWidth: 66
-                    Layout.rightMargin: 1
-                    Layout.bottomMargin: 2
-                    text: "OK"
+                standardButtons: control.buttons
 
-                    textVCenterOffset: -1
-
-                    onClicked: {
-                        control.close()
-                    }
+                onClicked: (button) => {
+                    control.buttonClicked(button.DialogButtonBox.buttonRole)
                 }
             }
 

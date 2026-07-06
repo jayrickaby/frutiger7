@@ -22,7 +22,7 @@ Window {
     property int instructionType: InstructionDialog.Information
     property int buttons: DialogButtonBox.Ok
 
-    flags: Qt.Window | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint
+    flags: Qt.Dialog | Qt.WindowTitleHint | Qt.WindowCloseButtonHint
 
     signal buttonClicked(int role)
 

@@ -7,4 +7,6 @@ QtObject {
 
     readonly property color colWindowBackground: "#FFFFFF"
     readonly property color colWindowSecondaryBackground: "#F0F0F0"
+
+    readonly property color colTextHighlight: "#3399ff"
 }

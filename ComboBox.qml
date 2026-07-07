@@ -10,6 +10,8 @@ import QtQuick.Controls.impl
 import QtQuick.Controls.Basic.impl
 import QtQuick.Templates as T
 
+import "."
+
 T.ComboBox {
     id: control
 
@@ -60,7 +62,7 @@ T.ComboBox {
         leftPadding: 2
 
         background: Rectangle {
-            color: highlighted ? control.palette.highlight : "transparent"
+            color: highlighted ? Theme.colTextHighlight : "transparent"
         }
     }
 
@@ -116,10 +118,12 @@ T.ComboBox {
         enabled: control.editable
 
         padding: 6
-        // topPadding: padding + 1
+        topPadding: 3
         bottomPadding: padding - 1
 
         verticalAlignment: TextInput.AlignVCenter
+
+        selectionColor: Theme.colTextHighlight
 
         font.pointSize: 9
         font.letterSpacing: 0.05

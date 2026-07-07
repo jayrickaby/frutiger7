@@ -88,7 +88,9 @@ T.ComboBox {
                 return dirComboboxAssets + imgArrowBackgroundRightHot
             }
 
-            opacity: indicatorMouseArea.containsMouse ? 1 : 0
+            // This is weird spaghetti logic.
+            // Mouse begins initial fade in -> Clicked activates pushed state -> Pushed state maintains that it stays faded in even if no mouse
+            opacity: indicatorMouseArea.containsMouse || control.popup.visible ? 1 : 0
 
             Behavior on opacity {
                 NumberAnimation {

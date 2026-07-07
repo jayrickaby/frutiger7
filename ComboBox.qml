@@ -37,6 +37,19 @@ T.ComboBox {
 
     rightPadding: padding + comboIndicator.width
 
+    delegate: ItemDelegate {
+        required property var model
+        required property int index
+
+        width: ListView.view.width
+        text: model[control.textRole]
+        palette.text: control.palette.text
+        palette.highlightedText: control.palette.highlightedText
+        font.weight: control.currentIndex === index ? Font.DemiBold : Font.Normal
+        highlighted: control.highlightedIndex === index
+        hoverEnabled: control.hoverEnabled
+    }
+
     indicator: BorderImage {
         id: comboIndicator
         width: 17
@@ -106,6 +119,51 @@ T.ComboBox {
                 return dirEditableAssets + imgEditableBackgroundHot
             }
             return dirEditableAssets + imgEditableBackground
+        }
+    }
+
+     popup: T.Popup {
+        y: control.height
+        width: control.width
+        height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
+        topMargin: 6
+        bottomMargin: 6
+        font: control.font
+        palette: control.palette
+
+        contentItem: ListView {
+            clip: true
+            implicitHeight: contentHeight
+            model: control.delegateModel
+            currentIndex: control.highlightedIndex
+            highlightMoveDuration: 0
+
+            Rectangle {
+                z: 10
+                width: parent.width
+                height: parent.height
+                color: "transparent"
+                border.color: control.palette.mid
+            }
+
+            // Show a contour around the highlighted item in high contrast mode
+            Rectangle {
+                property Item highlightedItem: parent ? parent.itemAtIndex(control.highlightedIndex) : null
+                visible: Qt.styleHints.accessibility.contrastPreference === Qt.HighContrast && highlightedItem
+                z: 11
+                x: highlightedItem ? highlightedItem.x : 0
+                y: highlightedItem ? highlightedItem.y : 0
+                width: highlightedItem ? highlightedItem.width : 0
+                height: highlightedItem ? highlightedItem.height : 0
+                color: "transparent"
+                border.color: control.palette.dark
+            }
+
+            T.ScrollIndicator.vertical: ScrollIndicator { }
+        }
+
+        background: Rectangle {
+            color: control.palette.window
         }
     }
 }

@@ -88,6 +88,7 @@ T.ComboBox {
         verticalAlignment: TextInput.AlignVCenter
 
         font.pointSize: 9
+        font.letterSpacing: 0.05
         renderType: Text.NativeRendering
     }
 

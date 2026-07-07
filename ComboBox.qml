@@ -27,6 +27,11 @@ T.ComboBox {
     readonly property string imgArrowBackgroundRightPressed: "arrow_background_right_pressed.png"
     readonly property string imgArrowBackgroundRightHot: "arrow_background_right_hot.png"
 
+    readonly property string imgListVerticalBackground: "list_vertical_background.png"
+    readonly property string imgListVerticalBackgroundDisabled: "list_vertical_background_disabled.png"
+    readonly property string imgListVerticalBackgroundFocused: "list_vertical_background_focused.png"
+    readonly property string imgListVerticalBackgroundHot: "list_vertical_background_hot.png"
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -39,13 +44,24 @@ T.ComboBox {
         required property var model
         required property int index
 
+        height: 15
         width: ListView.view.width
         text: model[control.textRole]
         palette.text: control.palette.text
         palette.highlightedText: control.palette.highlightedText
-        font.weight: control.currentIndex === index ? Font.DemiBold : Font.Normal
         highlighted: control.highlightedIndex === index
         hoverEnabled: control.hoverEnabled
+
+        font.letterSpacing: 0.05
+
+        padding: 0
+
+        bottomPadding: 1
+        leftPadding: 2
+
+        background: Rectangle {
+            color: highlighted ? control.palette.highlight : "transparent"
+        }
     }
 
     indicator: BorderImage {
@@ -122,11 +138,12 @@ T.ComboBox {
      popup: T.Popup {
         y: control.height
         width: control.width
-        height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
+        height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
         topMargin: 6
         bottomMargin: 6
         font: control.font
         palette: control.palette
+        padding: 1
 
         contentItem: ListView {
             clip: true
@@ -135,32 +152,33 @@ T.ComboBox {
             currentIndex: control.highlightedIndex
             highlightMoveDuration: 0
 
-            Rectangle {
-                z: 10
-                width: parent.width
-                height: parent.height
-                color: "transparent"
-                border.color: control.palette.mid
-            }
-
-            // Show a contour around the highlighted item in high contrast mode
-            Rectangle {
-                property Item highlightedItem: parent ? parent.itemAtIndex(control.highlightedIndex) : null
-                visible: Qt.styleHints.accessibility.contrastPreference === Qt.HighContrast && highlightedItem
-                z: 11
-                x: highlightedItem ? highlightedItem.x : 0
-                y: highlightedItem ? highlightedItem.y : 0
-                width: highlightedItem ? highlightedItem.width : 0
-                height: highlightedItem ? highlightedItem.height : 0
-                color: "transparent"
-                border.color: control.palette.dark
-            }
-
             T.ScrollIndicator.vertical: ScrollIndicator { }
         }
 
-        background: Rectangle {
-            color: control.palette.window
+        background: BorderImage {
+            anchors.fill: parent
+
+            border.left: 1
+            border.right: 1
+            border.top: 1
+            border.bottom: 1
+
+            horizontalTileMode: BorderImage.Repeat
+            verticalTileMode: BorderImage.Repeat
+
+            // Swap the image asset depending on whether the button is hovered or pressed
+            source: {
+                if (!control.enabled) {
+                    return dirComboboxAssets + imgListVerticalBackgroundDisabled
+                }
+                if (control.focused) {
+                    return dirComboboxAssets + imgListVerticalBackgroundFocused
+                }
+                if (control.hovered) {
+                    return dirComboboxAssets + imgListVerticalBackgroundHot
+                }
+                return dirComboboxAssets + imgListVerticalBackground
+            }
         }
     }
 }

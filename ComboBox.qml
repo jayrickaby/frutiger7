@@ -64,40 +64,50 @@ T.ComboBox {
         }
     }
 
-    indicator: BorderImage {
+    indicator: Item {
         id: comboIndicator
         width: 17
         height: control.height
-
         anchors.right: parent.right
-        border.left: 2
-        border.right: 2
-        border.top: 2
-        border.bottom: 2
-        horizontalTileMode: BorderImage.Repeat
-        verticalTileMode: BorderImage.Stretch
 
-        source: {
-            if (control.down) return dirComboboxAssets + imgArrowBackgroundRightPressed
-            if (indicatorMouseArea.containsMouse) return dirComboboxAssets + imgArrowBackgroundRightHot
-
-            return ""
-        }
-
-        MouseArea {
-            id: indicatorMouseArea
+        BorderImage {
+            id: comboIndicatorBackground
             anchors.fill: parent
-            hoverEnabled: true
+            border.left: 2
+            border.right: 2
+            border.top: 2
+            border.bottom: 2
+            horizontalTileMode: BorderImage.Repeat
+            verticalTileMode: BorderImage.Stretch
 
-            propagateComposedEvents: true
-            onPressed: (mouse) => mouse.accepted = false
-        }
+            source: {
+                if (control.down && comboIndicatorBackground.opacity === 1) return dirComboboxAssets + imgArrowBackgroundRightPressed
+                return dirComboboxAssets + imgArrowBackgroundRightHot
+            }
 
-        Image {
-            anchors.centerIn: parent
-            anchors.horizontalCenterOffset: -1
-            source: control.enabled ? dirComboboxAssets + imgArrow : dirComboboxAssets + imgArrowDisabled
+            opacity: indicatorMouseArea.containsMouse ? 1 : 0
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: comboIndicatorBackground.opacity === 0 ? 200 : 700
+                    easing.type: Easing.Linear
+                }
+            }
         }
+         MouseArea {
+                id: indicatorMouseArea
+                anchors.fill: parent
+                hoverEnabled: true
+
+                propagateComposedEvents: true
+                onPressed: (mouse) => mouse.accepted = false
+            }
+
+            Image {
+                anchors.centerIn: parent
+                anchors.horizontalCenterOffset: -1
+                source: control.enabled ? dirComboboxAssets + imgArrow : dirComboboxAssets + imgArrowDisabled
+            }
     }
 
     contentItem: T.TextField {

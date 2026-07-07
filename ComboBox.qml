@@ -82,7 +82,7 @@ T.ComboBox {
         enabled: control.editable
 
         padding: 6
-        topPadding: padding + 1
+        // topPadding: padding + 1
         bottomPadding: padding - 1
 
         verticalAlignment: TextInput.AlignVCenter

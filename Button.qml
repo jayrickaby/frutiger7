@@ -10,8 +10,9 @@ import "."
 T.Button {
     id: control
 
-    readonly property url imgBackground: Theme.dirItemAssets + "pushbutton.ico"
+    readonly property url imgBackground: Theme.dirItemAssets + "button/pushbutton.ico"
 
+    // Allow manual adjustment of text as its usually offset incorrectly
     property int textHCenterOffset: 0
     property int textVCenterOffset: 0
 

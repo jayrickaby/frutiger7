@@ -10,5 +10,5 @@ QtObject {
 
     readonly property color colTextHighlight: "#3399ff"
 
-    readonly property url dirItemAssets: Qt.resolvedUrl("assets/items/button/")
+    readonly property url dirItemAssets: Qt.resolvedUrl("assets/items/")
 }

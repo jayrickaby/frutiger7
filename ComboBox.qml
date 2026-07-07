@@ -16,24 +16,10 @@ import "."
 T.ComboBox {
     id: control
 
-    readonly property url dirComboboxAssets: Qt.resolvedUrl("assets/items/combobox/")
-    readonly property url dirEditableAssets: Qt.resolvedUrl("assets/items/textedit/")
-
-    readonly property string imgEditableBackground: "background.png"
-    readonly property string imgEditableBackgroundFocused: "background_focused.png"
-    readonly property string imgEditableBackgroundHot: "background_hot.png"
-    readonly property string imgEditableBackgroundDisabled: "background_disabled.png"
-
-    readonly property string imgArrow: "arrow.png"
-    readonly property string imgArrowDisabled: "arrow_disabled.png"
-
-    readonly property string imgArrowBackgroundRightPressed: "arrow_background_right_pressed.png"
-    readonly property string imgArrowBackgroundRightHot: "arrow_background_right_hot.png"
-
-    readonly property string imgListVerticalBackground: "list_vertical_background.png"
-    readonly property string imgListVerticalBackgroundDisabled: "list_vertical_background_disabled.png"
-    readonly property string imgListVerticalBackgroundFocused: "list_vertical_background_focused.png"
-    readonly property string imgListVerticalBackgroundHot: "list_vertical_background_hot.png"
+    readonly property url imgBorder: Theme.dirItemAssets + "combobox/border.ico"
+    readonly property url imgDropdownButtonRight: Theme.dirItemAssets + "combobox/dropdownbuttonright.ico"
+    readonly property url imgDropdownButtonArrow: Theme.dirItemAssets + "combobox/dropdownbutton_arrow.ico"
+    readonly property url imgListBoxBorder: Theme.dirItemAssets + "listbox/border_vscroll.ico"
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
@@ -42,6 +28,10 @@ T.ComboBox {
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
     rightPadding: padding + comboIndicator.width
+
+    enum DropdownButtonStates { Normal, Hot, Pressed, Disabled }
+    enum BorderStates { Normal, Hot, Focused, Disabled }
+    enum ListBoxBorderStates { Normal, Focused, Hot, Disabled }
 
     delegate: ItemDelegate {
         required property var model
@@ -83,9 +73,12 @@ T.ComboBox {
             horizontalTileMode: BorderImage.Repeat
             verticalTileMode: BorderImage.Stretch
 
-            source: {
-                if (control.down && comboIndicatorBackground.opacity === 1) return dirComboboxAssets + imgArrowBackgroundRightPressed
-                return dirComboboxAssets + imgArrowBackgroundRightHot
+            source: imgDropdownButtonRight
+
+            currentFrame: {
+                if (control.down && comboIndicatorBackground.opacity === 1) return ComboBox.DropdownButtonStates.Pressed
+
+                return ComboBox.DropdownButtonStates.Hot
             }
 
             // This is weird spaghetti logic.
@@ -111,7 +104,12 @@ T.ComboBox {
             Image {
                 anchors.centerIn: parent
                 anchors.horizontalCenterOffset: -1
-                source: control.enabled ? dirComboboxAssets + imgArrow : dirComboboxAssets + imgArrowDisabled
+                source: imgDropdownButtonArrow
+                currentFrame: {
+                    if (!control.enabled) return ComboBox.DropdownButtonStates.Disabled
+
+                    return ComboBox.DropdownButtonStates.Normal
+                }
             }
     }
 
@@ -146,17 +144,16 @@ T.ComboBox {
         verticalTileMode: BorderImage.Repeat
 
         // Swap the image asset depending on whether the button is hovered or pressed
-        source: {
-            if (!control.enabled) {
-                return dirEditableAssets + imgEditableBackgroundDisabled
-            }
-            if (control.focused) {
-                return dirEditableAssets + imgEditableBackgroundFocused
-            }
-            if (control.hovered) {
-                return dirEditableAssets + imgEditableBackgroundHot
-            }
-            return dirEditableAssets + imgEditableBackground
+        source: imgBorder
+
+        currentFrame: {
+            if (!control.enabled) return ComboBox.BorderStates.Disabled
+
+            if (control.focused) return ComboBox.BorderStates.Focused
+
+            if (control.hovered) return ComboBox.BorderStates.Hot
+
+            return ComboBox.BorderStates.Normal
         }
     }
 
@@ -204,18 +201,10 @@ T.ComboBox {
                 horizontalTileMode: BorderImage.Repeat
                 verticalTileMode: BorderImage.Repeat
 
-                // Swap the image asset depending on whether the button is hovered or pressed
-                source: {
-                    // if (!control.enabled) {
-                    //     return dirComboboxAssets + imgListVerticalBackgroundDisabled
-                    // }
-                    // if (control.focused) {
-                    //     return dirComboboxAssets + imgListVerticalBackgroundFocused
-                    // }
-                    // if (control.hovered) {
-                    //     return dirComboboxAssets + imgListVerticalBackgroundHot
-                    // }
-                    return dirComboboxAssets + imgListVerticalBackground
+                source: imgListBoxBorder
+
+                currentFrame : {
+                    return ComboBox.ListBoxBorderStates.Normal
                 }
             }
         }

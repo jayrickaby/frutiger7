@@ -190,15 +190,15 @@ T.ComboBox {
 
             // Swap the image asset depending on whether the button is hovered or pressed
             source: {
-                if (!control.enabled) {
-                    return dirComboboxAssets + imgListVerticalBackgroundDisabled
-                }
-                if (control.focused) {
-                    return dirComboboxAssets + imgListVerticalBackgroundFocused
-                }
-                if (control.hovered) {
-                    return dirComboboxAssets + imgListVerticalBackgroundHot
-                }
+                // if (!control.enabled) {
+                //     return dirComboboxAssets + imgListVerticalBackgroundDisabled
+                // }
+                // if (control.focused) {
+                //     return dirComboboxAssets + imgListVerticalBackgroundFocused
+                // }
+                // if (control.hovered) {
+                //     return dirComboboxAssets + imgListVerticalBackgroundHot
+                // }
                 return dirComboboxAssets + imgListVerticalBackground
             }
         }

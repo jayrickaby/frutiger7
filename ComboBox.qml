@@ -79,10 +79,18 @@ T.ComboBox {
 
         source: {
             if (control.down) return dirComboboxAssets + imgArrowBackgroundRightPressed
-            if (control.hovered) return dirComboboxAssets + imgArrowBackgroundRightHot
+            if (indicatorMouseArea.containsMouse) return dirComboboxAssets + imgArrowBackgroundRightHot
 
-//            return dirComboboxAssets +
             return ""
+        }
+
+        MouseArea {
+            id: indicatorMouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+
+            propagateComposedEvents: true
+            onPressed: (mouse) => mouse.accepted = false
         }
 
         Image {

@@ -24,10 +24,8 @@ T.ComboBox {
     readonly property string imgArrow: "arrow.png"
     readonly property string imgArrowDisabled: "arrow_disabled.png"
 
-    readonly property string imgArrowBackground: "arrow_background.png"
-    readonly property string imgArrowBackgroundPressed: "arrow_background_pressed.png"
-    readonly property string imgArrowBackgroundHot: "arrow_background_hot.png"
-    readonly property string imgArrowBackgroundDisabled: "arrow_background_disabled.png"
+    readonly property string imgArrowBackgroundRightPressed: "arrow_background_right_pressed.png"
+    readonly property string imgArrowBackgroundRightHot: "arrow_background_right_hot.png"
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
@@ -64,10 +62,8 @@ T.ComboBox {
         verticalTileMode: BorderImage.Stretch
 
         source: {
-            if (!control.enabled) return dirComboboxAssets + imgArrowBackgroundDisabled
-            if (control.focused) return dirComboboxAssets + imgArrowBackgroundHot
-            if (control.down) return dirComboboxAssets + imgArrowBackgroundPressed
-            if (control.hovered) return dirComboboxAssets + imgArrowBackgroundHot
+            if (control.down) return dirComboboxAssets + imgArrowBackgroundRightPressed
+            if (control.hovered) return dirComboboxAssets + imgArrowBackgroundRightHot
 
 //            return dirComboboxAssets +
             return ""

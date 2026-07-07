@@ -8,6 +8,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.impl
 import QtQuick.Controls.Basic.impl
+import QtQuick.Effects
 import QtQuick.Templates as T
 
 import "."
@@ -158,6 +159,7 @@ T.ComboBox {
     }
 
      popup: T.Popup {
+        id: itemList
         y: control.height
         width: control.width
         height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
@@ -177,29 +179,42 @@ T.ComboBox {
             T.ScrollIndicator.vertical: ScrollIndicator { }
         }
 
-        background: BorderImage {
-            anchors.fill: parent
+        background: Item {
+            RectangularShadow {
+                width: itemList.width - 8
+                height: itemList.height - 8
+                blur: 2
+                offset.x: 1 + 8
+                offset.y: 1 + 8
+                color: "#8e8e8e"
+                spread: 2
+                radius: 0
+            }
 
-            border.left: 1
-            border.right: 1
-            border.top: 1
-            border.bottom: 1
+            BorderImage {
+                anchors.fill: parent
 
-            horizontalTileMode: BorderImage.Repeat
-            verticalTileMode: BorderImage.Repeat
+                border.left: 1
+                border.right: 1
+                border.top: 1
+                border.bottom: 1
 
-            // Swap the image asset depending on whether the button is hovered or pressed
-            source: {
-                // if (!control.enabled) {
-                //     return dirComboboxAssets + imgListVerticalBackgroundDisabled
-                // }
-                // if (control.focused) {
-                //     return dirComboboxAssets + imgListVerticalBackgroundFocused
-                // }
-                // if (control.hovered) {
-                //     return dirComboboxAssets + imgListVerticalBackgroundHot
-                // }
-                return dirComboboxAssets + imgListVerticalBackground
+                horizontalTileMode: BorderImage.Repeat
+                verticalTileMode: BorderImage.Repeat
+
+                // Swap the image asset depending on whether the button is hovered or pressed
+                source: {
+                    // if (!control.enabled) {
+                    //     return dirComboboxAssets + imgListVerticalBackgroundDisabled
+                    // }
+                    // if (control.focused) {
+                    //     return dirComboboxAssets + imgListVerticalBackgroundFocused
+                    // }
+                    // if (control.hovered) {
+                    //     return dirComboboxAssets + imgListVerticalBackgroundHot
+                    // }
+                    return dirComboboxAssets + imgListVerticalBackground
+                }
             }
         }
     }

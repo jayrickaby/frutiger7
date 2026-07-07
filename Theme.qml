@@ -9,4 +9,6 @@ QtObject {
     readonly property color colWindowSecondaryBackground: "#F0F0F0"
 
     readonly property color colTextHighlight: "#3399ff"
+
+    readonly property url dirItemAssets: Qt.resolvedUrl("assets/items/button/")
 }

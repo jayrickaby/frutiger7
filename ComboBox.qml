@@ -175,7 +175,10 @@ T.ComboBox {
             currentIndex: control.highlightedIndex
             highlightMoveDuration: 0
 
-            T.ScrollIndicator.vertical: ScrollIndicator { }
+            T.ScrollBar.vertical: ScrollBar {
+                active: true
+                interactive: false
+            }
         }
 
         background: Item {

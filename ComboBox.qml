@@ -79,6 +79,11 @@ T.ComboBox {
         anchors.right: control.right
 
         rightPadding: indicator.width + 4
+
+        // Force binding because else it won't update
+        Binding on text {
+            value: control.displayText
+        }
     }
 
      popup: T.Popup {
@@ -86,11 +91,14 @@ T.ComboBox {
         y: control.height
         width: control.width
         height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
+
         font: control.font
         palette: control.palette
-        padding: 1
 
-        closePolicy: Popup.NoAutoClose
+        padding: 1
+        rightPadding: padding + shadowMargin
+        bottomPadding: padding + shadowMargin
+
         popupType: Popup.Window
 
         onOpenedChanged: {
@@ -99,7 +107,9 @@ T.ComboBox {
         }
 
         contentItem: ListView {
+            id: itemList
             clip: true
+
             implicitHeight: contentHeight
             model: control.delegateModel
             currentIndex: control.highlightedIndex
@@ -112,9 +122,13 @@ T.ComboBox {
         }
 
         background: Item {
+            anchors.fill: parent
             RectangularShadow {
-                width: itemList.width - 8
-                height: itemList.height - 8
+                anchors.fill: parent
+
+                anchors.rightMargin: 8 + popup.shadowMargin
+                anchors.bottomMargin: 8 + popup.shadowMargin
+
                 blur: 2
                 offset.x: 1 + 8
                 offset.y: 1 + 8
@@ -125,6 +139,9 @@ T.ComboBox {
 
             BorderImage {
                 anchors.fill: parent
+
+                anchors.rightMargin: popup.shadowMargin
+                anchors.bottomMargin: popup.shadowMargin
 
                 border.left: 1
                 border.right: 1

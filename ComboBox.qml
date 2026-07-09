@@ -165,6 +165,7 @@ T.ComboBox {
         font: control.font
         palette: control.palette
         padding: 1
+        popupType: Popup.Window
 
         contentItem: ListView {
             clip: true

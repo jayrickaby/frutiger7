@@ -10,16 +10,14 @@ import QtQuick.Templates as T
 T.TextField {
     id: control
 
-    readonly property url dirAssets: Qt.resolvedUrl("assets/items/textedit/")
+    property int borderType: TextField.BorderTypes.Default
+    property url imgBorder_noScroll: Theme.dirItemAssets + "textedit/border_noscroll.ico"
+    property url imgBorder_hScroll: Theme.dirItemAssets + "textedit/border_hscroll.ico"
+    property url imgBorder_vScroll: Theme.dirItemAssets + "textedit/border_vscroll.ico"
+    property url imgBorder_hvScroll: Theme.dirItemAssets + "textedit/border_hvscroll.ico"
 
-    readonly property string img: "background.png"
-    readonly property string imgFocused: "background_focused.png"
-    readonly property string imgHot: "background_hot.png"
-    readonly property string imgDisabled: "background_disabled.png"
-
-    readonly property string colText: "#000000"
-    // TODO: Is this the same as Button.qml?
-    readonly property string colTextDisabled: "#838383"
+    enum BorderTypes { Default, Horizontal, Vertical, HorizontalVertical }
+    enum States { Normal, Hot, Focused, Disabled }
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                              contentWidth + leftPadding + rightPadding,
@@ -29,11 +27,15 @@ T.TextField {
                              topPadding + bottomPadding)
 
     padding: 6
-    leftPadding: padding + 4
+    topPadding: 3
+    bottomPadding: padding - 1
+
     verticalAlignment: TextInput.AlignVCenter
 
-    color: control.enabled ? colText : colTextDisabled
+    selectionColor: Theme.colTextHighlight
+
     font.pointSize: 9
+    font.letterSpacing: 0.05
     renderType: Text.NativeRendering
 
     background: BorderImage {
@@ -45,18 +47,18 @@ T.TextField {
         horizontalTileMode: BorderImage.Repeat
         verticalTileMode: BorderImage.Repeat
 
-        // Swap the image asset depending on whether the button is hovered or pressed
         source: {
-            if (!control.enabled) {
-                return dirAssets + imgDisabled
-            }
-            if (control.focused) {
-                return dirAssets + imgFocused
-            }
-            if (control.hovered) {
-                return dirAssets + imgHot
-            }
-            return dirAssets + img
+            if (borderType === TextField.BorderTypes.Horizontal) return imgBorder_hScroll
+            if (borderType === TextField.BorderTypes.Vertical) return imgBorder_vScroll
+            if (borderType === TextField.BorderTypes.HorizontalVertical) return imgBorder_hvScroll
+            return imgBorder_noScroll
+        }
+
+        currentFrame: {
+            if (!control.enabled) return TextField.States.Disabled
+            if (control.pressed || control.focus) return TextField.States.Focused
+            if (!control.hovered) return TextField.States.Hot
+            return TextField.States.Normal
         }
     }
 }

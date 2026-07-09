@@ -57,78 +57,54 @@ T.ComboBox {
         }
     }
 
-    indicator: Item {
-        id: comboIndicator
-        width: 17
-        height: control.height
-        anchors.right: parent.right
+    // indicator: Item {
+    //     id: comboIndicator
+    //     width: 17
+    //     height: control.height
+    //     anchors.right: parent.right
+    //
+    //     BorderImage {
+    //         id: comboIndicatorBackground
+    //         anchors.fill: parent
+    //         border.left: 2; border.right: 2; border.top: 2; border.bottom: 2
+    //         horizontalTileMode: BorderImage.Repeat
+    //         verticalTileMode: BorderImage.Stretch
+    //
+    //         source: imgDropdownButtonRight
+    //
+    //         currentFrame: {
+    //             if (control.down && comboIndicatorBackground.opacity === 1) return ComboBox.DropdownButtonStates.Pressed
+    //
+    //             return ComboBox.DropdownButtonStates.Hot
+    //         }
+    //
+    //         // This is weird spaghetti logic.
+    //         // Mouse begins initial fade in -> Clicked activates pushed state -> Pushed state maintains that it stays faded in even if no mouse
+    //         opacity: indicator.hovered || control.popup.visible ? 1 : 0
+    //
+    //         Behavior on opacity {
+    //             NumberAnimation {
+    //                 duration: comboIndicatorBackground.opacity === 0 ? 200 : 700
+    //                 easing.type: Easing.Linear
+    //             }
+    //         }
+    //     }
+    //
+    //     Image {
+    //         anchors.centerIn: parent
+    //         anchors.horizontalCenterOffset: -1
+    //         source: imgDropdownButtonArrow
+    //         currentFrame: {
+    //             if (!control.enabled) return ComboBox.DropdownButtonStates.Disabled
+    //
+    //             return ComboBox.DropdownButtonStates.Normal
+    //         }
+    //     }
+    // }
 
-        BorderImage {
-            id: comboIndicatorBackground
-            anchors.fill: parent
-            border.left: 2
-            border.right: 2
-            border.top: 2
-            border.bottom: 2
-            horizontalTileMode: BorderImage.Repeat
-            verticalTileMode: BorderImage.Stretch
-
-            source: imgDropdownButtonRight
-
-            currentFrame: {
-                if (control.down && comboIndicatorBackground.opacity === 1) return ComboBox.DropdownButtonStates.Pressed
-
-                return ComboBox.DropdownButtonStates.Hot
-            }
-
-            // This is weird spaghetti logic.
-            // Mouse begins initial fade in -> Clicked activates pushed state -> Pushed state maintains that it stays faded in even if no mouse
-            opacity: indicatorMouseArea.containsMouse || control.popup.visible ? 1 : 0
-
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: comboIndicatorBackground.opacity === 0 ? 200 : 700
-                    easing.type: Easing.Linear
-                }
-            }
-        }
-         MouseArea {
-                id: indicatorMouseArea
-                anchors.fill: parent
-                hoverEnabled: true
-
-                propagateComposedEvents: true
-                onPressed: (mouse) => mouse.accepted = false
-            }
-
-            Image {
-                anchors.centerIn: parent
-                anchors.horizontalCenterOffset: -1
-                source: imgDropdownButtonArrow
-                currentFrame: {
-                    if (!control.enabled) return ComboBox.DropdownButtonStates.Disabled
-
-                    return ComboBox.DropdownButtonStates.Normal
-                }
-            }
-    }
-
-    contentItem: T.TextField {
+    contentItem: TextField {
         id: textField
-
         enabled: control.editable
-
-        padding: 6
-        topPadding: 3
-        bottomPadding: padding - 1
-
-        verticalAlignment: TextInput.AlignVCenter
-
-        selectionColor: Theme.colTextHighlight
-
-        font.pointSize: 9
-        font.letterSpacing: 0.05
-        renderType: Text.NativeRendering
     }
 
     background: BorderImage {
@@ -165,7 +141,9 @@ T.ComboBox {
         font: control.font
         palette: control.palette
         padding: 1
+
         popupType: Popup.Window
+        closePolicy: Popup.NoAutoClose
 
         contentItem: ListView {
             clip: true

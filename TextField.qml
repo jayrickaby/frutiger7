@@ -35,7 +35,7 @@ T.TextField {
     selectionColor: Theme.colTextHighlight
 
     font.pointSize: 9
-    font.letterSpacing: 0.05
+    // font.letterSpacing: 0.05
     renderType: Text.NativeRendering
 
     background: BorderImage {

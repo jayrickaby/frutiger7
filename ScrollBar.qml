@@ -175,9 +175,8 @@ T.ScrollBar {
             anchors {
                 fill: parent
                 topMargin: control.topPadding
-                bottomMargin: control.contentItem.height
+                bottomMargin: control.interactive ? control.contentItem.height : 0
             }
-            height: Math.max(0, control.contentItem.y - lineUp.height)
 
             source: imgTrack
 
@@ -197,7 +196,7 @@ T.ScrollBar {
             id: lowerTrack
             anchors {
                 fill: parent
-                topMargin: control.contentItem.height + control.contentItem.y
+                topMargin: control.interactive ? (control.contentItem.height + control.contentItem.y) : 0
                 bottomMargin: control.bottomPadding
             }
 
@@ -206,8 +205,6 @@ T.ScrollBar {
             HoverHandler {
                 id: lowerTrackHover
             }
-
-
 
             currentFrame : {
                 if (!control.enabled || !control.interactive) return ScrollBar.BarStates.Disabled

@@ -177,7 +177,6 @@ T.ComboBox {
             boundsBehavior: Flickable.StopAtBounds
 
             T.ScrollBar.vertical: ScrollBar {
-                // active: true
                 interactive: false
             }
         }

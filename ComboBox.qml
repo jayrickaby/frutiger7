@@ -162,8 +162,6 @@ T.ComboBox {
         y: control.height
         width: control.width
         height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
-        topMargin: 6
-        bottomMargin: 6
         font: control.font
         palette: control.palette
         padding: 1

@@ -4,6 +4,7 @@ singleton Theme 1.0 Theme.qml
 Button 1.0 Button.qml
 ComboBox 1.0 ComboBox.qml
 DialogButtonBox 1.0 DialogButtonBox.qml
+DropdownIndicator 1.0 DropdownIndicator.qml
 InstructionDialog 1.0 InstructionDialog.qml
 ScrollBar 1.0 ScrollBar.qml
 TextField 1.0 TextField.qml

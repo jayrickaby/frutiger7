@@ -27,8 +27,6 @@ T.ComboBox {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
-    rightPadding: padding + comboIndicator.width
-
     enum DropdownButtonStates { Normal, Hot, Pressed, Disabled }
     enum BorderStates { Normal, Hot, Focused, Disabled }
     enum ListBoxBorderStates { Normal, Focused, Hot, Disabled }
@@ -57,80 +55,20 @@ T.ComboBox {
         }
     }
 
-    // indicator: Item {
-    //     id: comboIndicator
-    //     width: 17
-    //     height: control.height
-    //     anchors.right: parent.right
-    //
-    //     BorderImage {
-    //         id: comboIndicatorBackground
-    //         anchors.fill: parent
-    //         border.left: 2; border.right: 2; border.top: 2; border.bottom: 2
-    //         horizontalTileMode: BorderImage.Repeat
-    //         verticalTileMode: BorderImage.Stretch
-    //
-    //         source: imgDropdownButtonRight
-    //
-    //         currentFrame: {
-    //             if (control.down && comboIndicatorBackground.opacity === 1) return ComboBox.DropdownButtonStates.Pressed
-    //
-    //             return ComboBox.DropdownButtonStates.Hot
-    //         }
-    //
-    //         // This is weird spaghetti logic.
-    //         // Mouse begins initial fade in -> Clicked activates pushed state -> Pushed state maintains that it stays faded in even if no mouse
-    //         opacity: indicator.hovered || control.popup.visible ? 1 : 0
-    //
-    //         Behavior on opacity {
-    //             NumberAnimation {
-    //                 duration: comboIndicatorBackground.opacity === 0 ? 200 : 700
-    //                 easing.type: Easing.Linear
-    //             }
-    //         }
-    //     }
-    //
-    //     Image {
-    //         anchors.centerIn: parent
-    //         anchors.horizontalCenterOffset: -1
-    //         source: imgDropdownButtonArrow
-    //         currentFrame: {
-    //             if (!control.enabled) return ComboBox.DropdownButtonStates.Disabled
-    //
-    //             return ComboBox.DropdownButtonStates.Normal
-    //         }
-    //     }
-    // }
+    indicator: DropdownIndicator {
+        width: 17
+        height: control.height
+        anchors.right: control.right
+
+        buttonType: DropdownIndicator.ButtonTypes.Right
+    }
 
     contentItem: TextField {
         id: textField
         enabled: control.editable
-    }
+        anchors.right: control.right
 
-    background: BorderImage {
-        anchors.fill: parent
-        visible: control.editable
-
-        border.left: 2
-        border.right: 2
-        border.top: 2
-        border.bottom: 2
-
-        horizontalTileMode: BorderImage.Repeat
-        verticalTileMode: BorderImage.Repeat
-
-        // Swap the image asset depending on whether the button is hovered or pressed
-        source: imgBorder
-
-        currentFrame: {
-            if (!control.enabled) return ComboBox.BorderStates.Disabled
-
-            if (control.focused) return ComboBox.BorderStates.Focused
-
-            if (control.hovered) return ComboBox.BorderStates.Hot
-
-            return ComboBox.BorderStates.Normal
-        }
+        rightPadding: indicator.width + 4
     }
 
      popup: T.Popup {

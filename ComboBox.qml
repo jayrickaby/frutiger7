@@ -61,6 +61,16 @@ T.ComboBox {
         anchors.right: control.right
 
         buttonType: DropdownIndicator.ButtonTypes.Right
+
+        onClicked: {
+            if (popup.opened) {
+                popup.close()
+                return
+            }
+
+            popup.open()
+            return
+        }
     }
 
     contentItem: TextField {
@@ -80,8 +90,13 @@ T.ComboBox {
         palette: control.palette
         padding: 1
 
-        popupType: Popup.Window
         closePolicy: Popup.NoAutoClose
+        popupType: Popup.Window
+
+        onOpenedChanged: {
+            if (opened) indicator.down = true
+            else indicator.down = undefined
+        }
 
         contentItem: ListView {
             clip: true

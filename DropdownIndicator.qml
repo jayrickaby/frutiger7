@@ -26,7 +26,7 @@ T.Button {
 
         currentFrame: {
             if (!control.enabled) return DropdownIndicator.States.Disabled
-            if (control.pressed) return DropdownIndicator.States.Pressed
+            if (control.pressed || control.down) return DropdownIndicator.States.Pressed
             if (control.hovered) return DropdownIndicator.States.Hot
             return DropdownIndicator.States.Normal
         }
@@ -50,7 +50,7 @@ T.Button {
             return DropdownIndicator.States.Hot
         }
 
-        opacity: control.hovered ? 1 : 0
+        opacity: (control.hovered || control.down) ? 1 : 0
 
         Behavior on opacity {
             NumberAnimation {

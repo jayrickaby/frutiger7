@@ -87,9 +87,10 @@ T.ComboBox {
     }
 
      popup: T.Popup {
-        id: itemList
-        y: control.height
-        width: control.width
+        // TODO: This is a hack, and a bad one at that.
+        readonly property int shadowMargin: 12
+
+        width: control.width + shadowMargin
         height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
 
         font: control.font

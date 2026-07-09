@@ -174,9 +174,10 @@ T.ComboBox {
             model: control.delegateModel
             currentIndex: control.highlightedIndex
             highlightMoveDuration: 0
+            boundsBehavior: Flickable.StopAtBounds
 
             T.ScrollBar.vertical: ScrollBar {
-                active: true
+                // active: true
                 interactive: false
             }
         }
